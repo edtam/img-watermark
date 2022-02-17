@@ -76,7 +76,7 @@ async function generate() {
 
 <template>
   <el-row :gutter="10">
-    <el-col :span="8">
+    <el-col :xs="24" :sm="8">
       <el-form :model="config" label-width="80px" class="form">
         <el-form-item label="图片">
           <el-upload
@@ -142,7 +142,7 @@ async function generate() {
         </el-form-item>
       </el-form>
     </el-col>
-    <el-col :span="16">
+    <el-col :xs="24" :sm="16">
       <div v-if="imgSrc" class="wrapper">
         <div ref="previewRef" class="preview" :style="previewStyle">
           <img
