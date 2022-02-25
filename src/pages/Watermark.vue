@@ -148,7 +148,9 @@ async function generate() {
           <el-input-number :step="10" v-model="config.offsetY" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="generate">生成</el-button>
+          <el-button type="primary" :loading="isGenerate" @click="generate">
+            生成
+          </el-button>
         </el-form-item>
       </el-form>
     </el-col>
@@ -174,7 +176,7 @@ async function generate() {
     </el-col>
   </el-row>
 
-  <el-dialog title="右击图片保存" v-model="isShowResult">
+  <el-dialog title="右击图片保存" center v-model="isShowResult">
     <img :src="resultSrc" class="result" />
   </el-dialog>
 </template>
