@@ -20,6 +20,7 @@ function handleExceed(files) {
 // 水印配置
 const config = reactive({
   content: '水印文字',
+  vertical: false,
   size: 36,
   color: '#666666',
   opacity: 0.8,
@@ -37,6 +38,9 @@ const offsetXVal = computed(() => `${config.offsetX}px`)
 const offsetYVal = computed(() => `${config.offsetY}px`)
 const rotateVal = computed(() => `${config.rotate}deg`)
 const sizeVal = computed(() => `${config.size}px`)
+const colStyle = computed(() => ({
+  width: config.vertical ? `${config.size}px` : 'auto',
+}))
 
 // 生成
 const wrapperWidth = 600 // 预览宽度
@@ -97,6 +101,12 @@ async function generate() {
         <el-form-item label="内容">
           <el-input placeholder="水印内容" v-model="config.content" />
         </el-form-item>
+        <el-form-item label="文字方向">
+          <el-radio-group v-model="config.vertical">
+            <el-radio-button :label="false">横</el-radio-button>
+            <el-radio-button :label="true">竖</el-radio-button>
+          </el-radio-group>
+        </el-form-item>
         <el-form-item label="大小">
           <el-input-number :min="0" :step="2" v-model="config.size" />
         </el-form-item>
@@ -154,7 +164,7 @@ async function generate() {
           />
           <div class="watermark">
             <div v-for="y in config.numY" class="row">
-              <div v-for="x in config.numX" class="col">
+              <div v-for="x in config.numX" class="col" :style="colStyle">
                 {{ config.content }}
               </div>
             </div>
@@ -202,6 +212,7 @@ async function generate() {
 }
 .col {
   display: inline-block;
+  white-space: normal;
   margin-right: v-bind(gapXVal);
   margin-bottom: v-bind(gapYVal);
   transform: rotate(v-bind(rotateVal));
