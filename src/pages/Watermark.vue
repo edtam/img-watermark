@@ -21,6 +21,7 @@ function handleExceed(files) {
 const config = reactive({
   content: '水印文字',
   vertical: false,
+  spacing: 0,
   size: 36,
   color: '#666666',
   opacity: 0.8,
@@ -39,7 +40,9 @@ const offsetYVal = computed(() => `${config.offsetY}px`)
 const rotateVal = computed(() => `${config.rotate}deg`)
 const sizeVal = computed(() => `${config.size}px`)
 const colStyle = computed(() => ({
-  width: config.vertical ? `${config.size}px` : 'auto',
+  width: config.vertical ? `${config.size}px` : '',
+  letterSpacing: config.vertical ? '' : `${config.spacing}px`,
+  lineHeight: config.vertical ? `calc(${config.size + config.spacing}px)` : '',
 }))
 
 // 生成
@@ -106,6 +109,9 @@ async function generate() {
             <el-radio-button :label="false">横</el-radio-button>
             <el-radio-button :label="true">竖</el-radio-button>
           </el-radio-group>
+        </el-form-item>
+        <el-form-item label="文字间距">
+          <el-input-number :min="0" v-model="config.spacing" />
         </el-form-item>
         <el-form-item label="大小">
           <el-input-number :min="0" :step="2" v-model="config.size" />
@@ -217,6 +223,7 @@ async function generate() {
   white-space: normal;
   margin-right: v-bind(gapXVal);
   margin-bottom: v-bind(gapYVal);
+  line-height: 1;
   transform: rotate(v-bind(rotateVal));
 }
 .result {
