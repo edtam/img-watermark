@@ -224,6 +224,8 @@ async function generate() {
   margin-right: v-bind(gapXVal);
   margin-bottom: v-bind(gapYVal);
   line-height: 1;
+  overflow-wrap: break-word;
+  text-align: center;
   transform: rotate(v-bind(rotateVal));
 }
 .result {
